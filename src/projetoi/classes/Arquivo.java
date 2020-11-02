@@ -34,13 +34,8 @@ import javax.swing.JOptionPane;
  */
 public class Arquivo {
 
-    public Arquivo(ArrayList<String> grafo, ArrayList<String> ordenacaoAlfabetica) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
-    public Arquivo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public ArrayList<String> getGrafo() {
         return grafo;
@@ -176,6 +171,7 @@ public void Saida() {
 			JOptionPane.showMessageDialog(null, "Error:" + e);
 		}
     }
+
 }
 
     

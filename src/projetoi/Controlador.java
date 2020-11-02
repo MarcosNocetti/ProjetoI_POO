@@ -129,9 +129,8 @@ public class Controlador extends javax.swing.JFrame {
         nameFile= txtFile.getText();
         Arquivo data = new Arquivo();
         data.get_data_archives(getPathString());
-        data.process_elements(); //Processing the elements from file path.
-        Arquivo write = new Arquivo(data.getGrafo(), data.getOrdenacaoAlfabetica()); //
-        write.EscreverLista(getPathString_CSV(),getName_file_CSV());
+        data.process_elements();
+        data.EscreverLista(getPathString_CSV(),getName_file_CSV());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
