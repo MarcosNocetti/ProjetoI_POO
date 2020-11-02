@@ -11,7 +11,8 @@ import projetoi.classes.Arquivo;
 public class ProjetoI {
 
     public static void main(String[] args) throws IOException {
-      
+        Controlador C = new Controlador();
+        C.setVisible(true);
     }
     
 }
