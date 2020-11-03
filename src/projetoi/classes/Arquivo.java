@@ -34,56 +34,71 @@ import javax.swing.JOptionPane;
  */
 public class Arquivo {
 
-  
+	public ArrayList<String> getGrafo() {
+		return grafo;
+	}
 
+	public ArrayList<String> getOrdenacaoAlfabetica() {
+		return OrdenacaoAlfabetica;
+	}
 
-    public ArrayList<String> getGrafo() {
-        return grafo;
-    }
+	public void setOrdenacaoAlfabetica(ArrayList<String> OrdenacaoAlfabetica) {
+		this.OrdenacaoAlfabetica = OrdenacaoAlfabetica;
+	}
 
-    public ArrayList<String> getOrdenacaoAlfabetica() {
-        return OrdenacaoAlfabetica;
-    }
+	public StringBuilder getBuilder_string() {
+		return builder_string;
+	}
 
-    public void setOrdenacaoAlfabetica(ArrayList<String> OrdenacaoAlfabetica) {
-        this.OrdenacaoAlfabetica = OrdenacaoAlfabetica;
-    }
+	public void setBuilder_string(StringBuilder builder_string) {
+		this.builder_string = builder_string;
+	}
 
-    public StringBuilder getBuilder_string() {
-        return builder_string;
-    }
+	public void setGrafo(ArrayList<String> grafo) {
+		this.grafo = grafo;
+	}
 
-    public void setBuilder_string(StringBuilder builder_string) {
-        this.builder_string = builder_string;
-    }
+	public String format_words(String words) {
+		return words.toLowerCase();
+	}
 
-    public void setGrafo(ArrayList<String> grafo) {
-        this.grafo = grafo;
-    }
-    public String format_words(String words) {
-        return words.toLowerCase();
-    }
-    
-    private ArrayList<String> grafo = new ArrayList();
-    private ArrayList<String> OrdenacaoAlfabetica = new ArrayList<>();
-    private StringBuilder builder_string = new StringBuilder();
+	private ArrayList<String> grafo = new ArrayList();
+	private ArrayList<String> OrdenacaoAlfabetica = new ArrayList<>();
+	private StringBuilder builder_string = new StringBuilder();
 
-    public List<String> ChecarRepeticao() {
-            Set<String> Filtrada = new LinkedHashSet<>(getOrdenacaoAlfabetica());
-            List<String> Lista = new ArrayList<>(Filtrada);
-            return Lista;
-    }
-    public ArrayList<String> alphabetic_order(ArrayList<String> list) {
-        Collections.sort(list);
-        return list;
-    }
+	/**
+	 * Find repeated values in given input
+	 * 
+	 * @return - Returns list with only unique values
+	 */
+	public List<String> ChecarRepeticao() {
+		Set<String> Filtrada = new LinkedHashSet<>(getOrdenacaoAlfabetica());
+		List<String> Lista = new ArrayList<>(Filtrada);
+		return Lista;
+	}
 
+	/**
+	 * Sorts by alphabetic order
+	 * 
+	 * @param list - List used to store values in alphabetic order
+	 * @return - Returns list with values in alphabetic order
+	 */
+	public ArrayList<String> alphabetic_order(ArrayList<String> list) {
+		Collections.sort(list);
+		return list;
+	}
+
+	/**
+	 * Get data from input archive and adds it to graph
+	 * 
+	 * @param path - Used to specify location of the input file
+	 */
 	public void get_data_archives(String path) {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) {
 			String line = br.readLine();
 			while (line != null) {
 				String[] wordsFromline;
-                            wordsFromline = line.split("[!-.:-@\\s]");
+				wordsFromline = line.split("[!-.:-@\\s]");
 				for (String word : wordsFromline) {
 					if (!"".equals(word.trim())) {
 						this.grafo.add(word);
@@ -92,10 +107,13 @@ public class Arquivo {
 				line = br.readLine();
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null,"Error:" + e);
+			JOptionPane.showMessageDialog(null, "Error:" + e);
 		}
 	}
 
+	/**
+	 * Sorts given output by alphabetic order
+	 */
 	public void process_elements() {
 		try {
 			for (int i = 0; i < getGrafo().size(); i++) {
@@ -105,14 +123,15 @@ public class Arquivo {
 			setOrdenacaoAlfabetica(alphabetic_order(getOrdenacaoAlfabetica()));
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error:" + e);
+			JOptionPane.showMessageDialog(null, "Error:" + e);
 		}
 
 	}
-    
 
-
-public void Saida() {
+	/**
+	 * Checks for repeated values in given graph
+	 */
+	public void Saida() {
 		try {
 			int count = 0;
 			int countOc = 0;
@@ -124,30 +143,32 @@ public void Saida() {
 				countRep = 0;
 				Posicao.clear();
 				Palavra.clear();
-                                int i = 0;
+				int i = 0;
 				while (i < getGrafo().size() - 1) {
 					if (ChecarRepeticao().get(count).equals(getGrafo().get(i))) {
 						Posicao.add(i);
 						countOc++;
 					}
-                                         i++;
+					i++;
 				}
 				if (countOc == 1) {
-					getBuilder_string().append(ChecarRepeticao().get(count)).append(",").append(getGrafo().get(Posicao.get(0) + 1)).append('\r');
+					getBuilder_string().append(ChecarRepeticao().get(count)).append(",")
+							.append(getGrafo().get(Posicao.get(0) + 1)).append('\r');
 				} else {
-                                        i = 0;
+					i = 0;
 					while (i < countOc) {
-                                            
+
 						if (countRep == 0) {
 							Palavra.add(getGrafo().get(Posicao.get(i) + 1));
 							countRep++;
-							getBuilder_string().append(ChecarRepeticao().get(count)).append(",").append(getGrafo().get(Posicao.get(i) + 1));
+							getBuilder_string().append(ChecarRepeticao().get(count)).append(",")
+									.append(getGrafo().get(Posicao.get(i) + 1));
 						} else if (Palavra.contains(getGrafo().get(Posicao.get(i) + 1))) {
 						} else {
 							Palavra.add(getGrafo().get(Posicao.get(i) + 1));
 							getBuilder_string().append(",").append(getGrafo().get(Posicao.get(i) + 1));
 						}
-                                                i++;
+						i++;
 					}
 					getBuilder_string().append("\r");
 				}
@@ -157,23 +178,26 @@ public void Saida() {
 			JOptionPane.showMessageDialog(null, "Error:" + e);
 		}
 	}
-
-    
-    public void EscreverLista(String path, String ArquivoCSV) {
+	
+	/**
+	 * Write list of values in a output .csv file
+	 * 
+	 * @param path - Used to specify location of the .csv output file
+	 * @param ArquivoCSV - .csv file
+	 */
+	public void EscreverLista(String path, String ArquivoCSV) {
 		try {
-			PrintWriter printWriter = new PrintWriter(
-					new File(path)+"\\"+ArquivoCSV+".csv");
+			PrintWriter printWriter = new PrintWriter(new File(path) + "\\" + ArquivoCSV + ".csv");
 			Saida();// Proper output
 			printWriter.write(getBuilder_string().toString());
 			printWriter.close();
-			JOptionPane.showMessageDialog(null, "Resposta escrita em: "+ArquivoCSV+"\n Local: "+path+"\\"+ArquivoCSV+".csv");
+			JOptionPane.showMessageDialog(null,
+					"Resposta escrita em: " + ArquivoCSV + "\n Local: " + path + "\\" + ArquivoCSV + ".csv");
 		} catch (HeadlessException | FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "Error:" + e);
 		}
-    }
+	}
 
 }
-
-    
 
 
