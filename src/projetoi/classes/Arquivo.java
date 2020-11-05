@@ -78,7 +78,7 @@ public class Arquivo {
         return list;
     }
 
-	public void get_data_archives(String path) {
+	public void getData(String path) {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) {
 			String line = br.readLine();
 			while (line != null) {
@@ -96,7 +96,7 @@ public class Arquivo {
 		}
 	}
 
-	public void process_elements() {
+	public void ProcessamentoDeDados() {
 		try {
 			for (int i = 0; i < getGrafo().size(); i++) {
 				getGrafo().set(i, format_words(getGrafo().get(i)));

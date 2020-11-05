@@ -128,8 +128,8 @@ public class Controlador extends javax.swing.JFrame {
         pathCSV= txtCsv.getText();
         nameFile= txtFile.getText();
         Arquivo data = new Arquivo();
-        data.get_data_archives(getPathString());
-        data.process_elements();
+        data.getData(getPathString());
+        data.ProcessamentoDeDados();
         data.EscreverLista(getPathString_CSV(),getName_file_CSV());
     }//GEN-LAST:event_jButton1ActionPerformed
 
